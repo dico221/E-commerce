@@ -78,14 +78,17 @@ footer {
     border-top: 1px solid #2a2f3a;
 }
 
-.carrello .account {
-    width: 35px;
-    height: 35px;
-    object-fit: cover;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+.account .carrello{
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
-.carrello:hover .account:hover{
-    transform: scale(1.1);
+/* Hover */
+.account:hover .carrello:hover{
+    color: #4ade80;
+    text-shadow: 0 0 8px #4ade80;
 }
