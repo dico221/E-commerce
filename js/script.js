@@ -2,8 +2,7 @@ let account;
 
 if (localStorage.getItem("account") === null) {
     account = {
-        users: [],
-        session: {}, 
+        session: [], 
         cart: [],
         orders: []
     };
@@ -15,16 +14,6 @@ if (localStorage.getItem("account") === null) {
 
 function updateLocalStorage(){
     localStorage.setItem("account", JSON.stringify(account));
-}
-
-function loginUtente(email, password){
-    account.users.forEach(element => {
-        if(element.email == email && element.password == password){
-            account.session = element;
-            updateLocalStorage();
-        }
-    });
-    
 }
 
 function creaUtente(nome,cognome,indirizzo,cap,email,password){
