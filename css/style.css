@@ -34,17 +34,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Effetto hover */
-.titolo:hover {
-    transform: scale(1.15);
-
-    /* glow */
-    text-shadow: 
-        0 0 5px #4ade80,
-        0 0 10px #4ade80,
-        0 0 20px #4ade80,
-        0 0 40px #22c55e;
-}
 
 /* Sezioni destra */
 .home, .account {
