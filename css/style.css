@@ -77,3 +77,15 @@ footer {
     background-color: #151922;
     border-top: 1px solid #2a2f3a;
 }
+
+.icon {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.icon:hover {
+    transform: scale(1.1);
+}
