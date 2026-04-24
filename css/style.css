@@ -48,7 +48,7 @@ body {
 .header a {
     text-decoration: none;
     color: #111111;
-    font-size: 15px;
+    font-size: 24px;
     transition: opacity 0.2s ease;
 }
 
