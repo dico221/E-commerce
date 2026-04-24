@@ -78,7 +78,7 @@ footer {
     border-top: 1px solid #2a2f3a;
 }
 
-.icon {
+.carrello .account {
     width: 35px;
     height: 35px;
     object-fit: cover;
@@ -86,6 +86,6 @@ footer {
     transition: transform 0.2s ease;
 }
 
-.icon:hover {
+.carrello:hover .account:hover{
     transform: scale(1.1);
 }
