@@ -22,7 +22,6 @@ function loginUtente(email, password){
         if(element.email == email && element.password == password){
             account.session = element;
             updateLocalStorage();
-
         }
     });
     
