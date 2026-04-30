@@ -1,21 +1,136 @@
 let account;
-
-if (localStorage.getItem("account") === null) {
-    account = {
-        session: [], 
+/*
+account = {
+        name: "",
+        lastname: "",
+        streetname: "",
+        zip: "",
+        email: "",
+        password: "",
         cart: [],
         orders: []
     };
-    updateLocalStorage();
-    console.log("localhost inizializzato");
-} else {
+*/
+
+
+if (!localStorage.getItem("account") === null) {
     account = JSON.parse(localStorage.getItem("account"));
+    document.getElementById("a_account").innerHTML = "Account";
+    document.getElementById("carrello").hidden = false;
+}else{
+    document.getElementById("a_account").innerHTML = "Registrati";
+    document.getElementById("carrello").hidden = true;
 }
+    
+
 
 function updateLocalStorage(){
     localStorage.setItem("account", JSON.stringify(account));
 }
 
-function creaUtente(nome,cognome,indirizzo,cap,email,password){
+function creaUtente(){
+    let valido = true;
 
+    let infos = {
+        name: "",
+        lastname: "",
+        streetname: "",
+        zip: "",
+        email: "",
+        password: "",
+        cart: [],
+        orders: []
+    };
+
+    let nome = document.getElementById("nome");
+    let cognome = document.getElementById("cognome");
+    let indirizzo = document.getElementById("indirizzo");
+    let cap = document.getElementById("cap");
+    let email = document.getElementById("email");
+    let password = document.getElementById("password");
+
+    const REGEX_NOME = /^[\p{L}][\p{L}'\- ]{1,49}$/u;
+    const REGEX_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const REGEX_PASSWORD = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    const REGEX_INDIRIZZO = /^[\p{L}0-9\s.,'\/#\-]{5,100}$/u;
+    const REGEX_CAP = /^[A-Za-z0-9\s\-]{3,10}$/;
+
+    if(!REGEX_NOME.test(nome.value.trim())){
+        nome.classList.add("input-error");
+        valido = false;
+    } else {
+        nome.classList.remove("input-error");
+    }
+
+    if(!REGEX_NOME.test(cognome.value.trim())){
+        cognome.classList.add("input-error");
+        valido = false;
+    } else {
+        cognome.classList.remove("input-error");
+    }
+
+    if(!REGEX_INDIRIZZO.test(indirizzo.value.trim())){
+        indirizzo.classList.add("input-error");
+        valido = false;
+    } else {
+        indirizzo.classList.remove("input-error");
+    }
+
+    if(!REGEX_CAP.test(cap.value.trim())){
+        cap.classList.add("input-error");
+        valido = false;
+    } else {
+        cap.classList.remove("input-error");
+    }
+
+
+    if(!REGEX_EMAIL.test(email.value.trim())){
+        email.classList.add("input-error");
+        valido = false;
+    } else {
+        email.classList.remove("input-error");
+    }
+
+    if(!REGEX_PASSWORD.test(password.value)){
+        password.classList.add("input-error");
+        valido = false;
+    } else {
+        password.classList.remove("input-error");
+    }
+
+    if(valido){
+        infos.name = nome.value.trim();
+        infos.lastname = cognome.value.trim();
+        infos.streetname = indirizzo.value.trim();
+        infos.zip = cap.value.trim();
+        infos.email = email.value.trim();
+        infos.password = password.value;
+
+        
+        setTimeout(() => {
+            localStorage.setItem("account", JSON.stringify(infos));
+            window.location.href="./page.html"
+        }, 5000);
+
+
+    }
+}
+
+function accountPage(){
+    if (localStorage.getItem("account") === null) {
+        window.location.href = "./accounts/registrazione.html"
+    }
+    else {
+        window.location.href = "./accounts/page.html"
+    }
+}
+
+function showPass(id, checkbox) {
+    const input = document.getElementById(id);
+
+    if (checkbox.checked) {
+        input.type = "text";
+    } else {
+        input.type = "password";
+    }
 }
