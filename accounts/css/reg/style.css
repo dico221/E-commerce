@@ -163,3 +163,40 @@ body {
         padding: 15px;
     }
 }
+.form a {
+    margin-top: 8px;
+    text-align: center;
+    text-decoration: none;
+    color: #111;
+    border: 1px solid #111;
+    padding: 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.form a:hover {
+    background-color: #111;
+    color: #fff;
+}
+/* TESTO LOGIN */
+.login-text {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* LINK LOGIN */
+.login-link {
+    text-align: center;
+    text-decoration: none;
+    color: #111;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.login-link:hover {
+    opacity: 0.7;
+    text-decoration: underline;
+}
