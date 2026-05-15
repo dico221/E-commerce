@@ -8,19 +8,23 @@ account = {
         email: "",
         password: "",
         cart: [],
-        orders: []
-    };
+        orders: [],
+        csv
+};
+logins = {
+    accounts: [account]
+}
 */
 
-
-if (!localStorage.getItem("account") === null) {
+if (localStorage.getItem("account") != null) {
     account = JSON.parse(localStorage.getItem("account"));
-    document.getElementById("a_account").innerHTML = "Account";
-    document.getElementById("carrello").hidden = false;
+    document.getElementById("a_account").innerHTML = "Carrello(" + account.cart.length+")";
+    console.log(1)
 }else{
     document.getElementById("a_account").innerHTML = "Registrati";
-    document.getElementById("carrello").hidden = true;
+    console.log(2)
 }
+
     
 
 
@@ -109,8 +113,8 @@ function creaUtente(){
         
         setTimeout(() => {
             localStorage.setItem("account", JSON.stringify(infos));
-            window.location.href="./page.html"
-        }, 5000);
+            window.location.href="./cart.html"
+        }, 1000);
 
 
     }
@@ -121,7 +125,7 @@ function accountPage(){
         window.location.href = "./accounts/registrazione.html"
     }
     else {
-        window.location.href = "./accounts/page.html"
+        window.location.href = "./accounts/cart.html"
     }
 }
 
@@ -133,4 +137,10 @@ function showPass(id, checkbox) {
     } else {
         input.type = "password";
     }
+}
+
+
+
+function customCSV(){
+    
 }
