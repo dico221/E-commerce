@@ -109,11 +109,19 @@ function creaUtente(){
         infos.zip = cap.value.trim();
         infos.email = email.value.trim();
         infos.password = password.value;
-
         
         setTimeout(() => {
             localStorage.setItem("account", JSON.stringify(infos));
-            window.location.href="./cart.html"
+            if(localStorage.getItem("logins") != null){
+                let totalAccount = JSON.parse(localStorage.getItem("logins"));
+                totalAccount.push(infos);
+                localStorage.setItem("logins", JSON.stringify(totalAccount));
+            }else{
+                let totalAccount = [];
+                totalAccount.push(infos);
+                localStorage.setItem("logins", JSON.stringify(totalAccount));
+            }
+            window.location.href="../index.html"
         }, 1000);
 
 
