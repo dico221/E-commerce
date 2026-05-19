@@ -19,8 +19,14 @@
 </div>
     <div>
         <div id="prodotti"></div>
-        <div id="pulsanti"></div>
+        <div id="pulsanti">
+            <input type="button" class="acquista" value="Acquista">
+        </div>
     </div>
-    <script src="../js/script.js"></script>
+    <script src="../js/script.js">
+        if (localStorage.getItem(account) == null) {
+            window.location.href="../index.html";
+        }
+    </script>
 </body>
 </html>

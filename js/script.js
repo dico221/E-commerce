@@ -19,21 +19,47 @@ logins = {
 if (localStorage.getItem("account") != null) {
     account = JSON.parse(localStorage.getItem("account"));
     document.getElementById("a_account").innerHTML = "Carrello(" + account.cart.length+")";
+    document.getElementById("logout-text").innerHTML = "Esci";
     console.log(1)
 }else{
     document.getElementById("a_account").innerHTML = "Registrati";
+    document.getElementById("logout-text").innerHTML = "";
     console.log(2)
+}
+
+if(localStorage.getItem("csv") == null){
+    loadCSV();
 }
 
     
 
+function logUserIn() {
 
-function updateLocalStorage(){
-    localStorage.setItem("account", JSON.stringify(account));
+    let email = document.getElementById("email").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let logins = JSON.parse(localStorage.getItem("logins")) || [];
+
+    let user = logins.find(element =>
+        element.email === email.trim() &&
+        element.password === password.trim()
+    );
+
+    if(user){
+
+        localStorage.setItem("account", JSON.stringify(user));
+        window.location.href = "../index.html";document.getElementById("input-error").innerHTML = "";
+
+    }else{
+
+        document.getElementById("input-error").innerHTML = "Email o Password sbagliate";
+    }
 }
 
 function creaUtente(){
+
     let valido = true;
+
+    let logins = JSON.parse(localStorage.getItem("logins")) || [];
 
     let infos = {
         name: "",
@@ -60,71 +86,97 @@ function creaUtente(){
     const REGEX_CAP = /^[A-Za-z0-9\s\-]{3,10}$/;
 
     if(!REGEX_NOME.test(nome.value.trim())){
+
         nome.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         nome.classList.remove("input-error");
     }
 
     if(!REGEX_NOME.test(cognome.value.trim())){
+
         cognome.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         cognome.classList.remove("input-error");
     }
 
     if(!REGEX_INDIRIZZO.test(indirizzo.value.trim())){
+
         indirizzo.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         indirizzo.classList.remove("input-error");
     }
 
     if(!REGEX_CAP.test(cap.value.trim())){
+
         cap.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         cap.classList.remove("input-error");
     }
 
-
     if(!REGEX_EMAIL.test(email.value.trim())){
+
         email.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         email.classList.remove("input-error");
+
+        logins.forEach(element => {
+
+            if(element.email === email.value.trim()){
+
+                valido = false;
+
+                alert("Email già associata ad un account");
+
+                email.classList.add("input-error");
+            }
+        });
     }
 
     if(!REGEX_PASSWORD.test(password.value)){
+
         password.classList.add("input-error");
+
         valido = false;
-    } else {
+
+    }else{
+
         password.classList.remove("input-error");
     }
 
     if(valido){
+
         infos.name = nome.value.trim();
         infos.lastname = cognome.value.trim();
         infos.streetname = indirizzo.value.trim();
         infos.zip = cap.value.trim();
         infos.email = email.value.trim();
         infos.password = password.value;
-        
-        setTimeout(() => {
-            localStorage.setItem("account", JSON.stringify(infos));
-            if(localStorage.getItem("logins") != null){
-                let totalAccount = JSON.parse(localStorage.getItem("logins"));
-                totalAccount.push(infos);
-                localStorage.setItem("logins", JSON.stringify(totalAccount));
-            }else{
-                let totalAccount = [];
-                totalAccount.push(infos);
-                localStorage.setItem("logins", JSON.stringify(totalAccount));
-            }
-            window.location.href="../index.html"
-        }, 1000);
 
+        logins.push(infos);
+        localStorage.setItem("logins", JSON.stringify(logins));
+        localStorage.setItem("account", JSON.stringify(infos));
 
+        window.location.href = "../index.html";
     }
 }
 
@@ -147,8 +199,52 @@ function showPass(id, checkbox) {
     }
 }
 
+function logout(){
+    if(localStorage.getItem("account") != null){
+        localStorage.removeItem("account");
+        window.location.href = "./index.html";
+    }
+}
 
 
-function customCSV(){
-    
+function loadCSV(){
+
+    let fileCsv = localStorage.getItem("csv");
+
+    if(fileCsv != null){
+
+        console.log(1);
+
+        parseCSV(fileCsv);
+
+    }else{
+
+        console.log(2);
+
+        fetch("./csv/default.csv")
+            .then(res => res.text())
+            .then(csv => {
+
+                localStorage.setItem("csv", csv);
+        });
+    }
+}
+
+function customCSV() {
+    const csv = prompt("inserisci il contenuto del csv:");
+
+    if (csv != null) {
+        localStorage.setItem("csv", csv);
+        console.log("CSV salvato e pronto per il parsing.");
+    }
+}
+
+function resetCSV(){
+    localStorage.removeItem("csv")
+    loadCSV()
+}
+
+
+function aggiungiCarrello(id){
+
 }

@@ -4,8 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="css/login/style.css">
 </head>
 <body>
-    <div></div>
+    <div class="titolo" onclick="window.location.href='../index.html'" style="margin-right:3dvh;">
+        <img src="../css/imgs/title.png" alt="DAWMarket">
+    </div>
+    <div class="form">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="Inserisci la mail">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <div class="checkbox-group">
+            <input type="checkbox" name="show" id="show" onclick="showPass('password', this)">
+            <label for="show">Mostra password</label>
+        </div>
+        <input type="button" value="Login" onclick="logUserIn()">
+        <p class="login-text">Se non hai  un account</p>
+        <a href="./registrazione.html">Registrati</a>
+        <p id="input-error"></p>
+    </div>
+    <script src="../js/script.js">
+        if (localStorage.getItem(account) != null) {
+            window.location.href="../index.html";
+        }
+    </script>
 </body>
 </html>
