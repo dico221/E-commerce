@@ -16,9 +16,29 @@ logins = {
 }
 */
 
+function updateLoginAccount(account2){
+
+    let logins = JSON.parse(localStorage.getItem("logins"));
+
+    let i = logins.findIndex(element =>
+        element.email === account2.email
+    );
+
+    if(i != -1){
+
+        logins[i] = account2;
+        localStorage.setItem("logins", JSON.stringify(logins));
+    }
+}
+
 if (localStorage.getItem("account") != null) {
     account = JSON.parse(localStorage.getItem("account"));
-    document.getElementById("a_account").innerHTML = "Carrello(" + account.cart.length+")";
+    let num = 0;
+    for (let i = 0; i < account.cart.length; i++) {
+        num+=account.cart[i][1]
+        
+    }
+    document.getElementById("a_account").innerHTML = "Carrello(" + num+")";
     document.getElementById("logout-text").innerHTML = "Esci";
     console.log(1)
 }else{
@@ -39,14 +59,14 @@ function logUserIn() {
     let password = document.getElementById("password").value.trim();
     let logins = JSON.parse(localStorage.getItem("logins")) || [];
 
-    let user = logins.find(element =>
+    let auth = logins.find(element =>
         element.email === email.trim() &&
         element.password === password.trim()
     );
 
-    if(user){
+    if(auth){
 
-        localStorage.setItem("account", JSON.stringify(user));
+        localStorage.setItem("account", JSON.stringify(auth));
         window.location.href = "../index.html";document.getElementById("input-error").innerHTML = "";
 
     }else{
@@ -243,14 +263,31 @@ function resetCSV(){
 }
 
 
-function aggiungiCarrello(id,quantita){
-    account = JSON.parse(localStorage.getItem("account"));
+function aggiungiCarrello(id, quantita){
+
+    let account = JSON.parse(localStorage.getItem("account"));
     if(account != null){
-        logins = JSON.parse(localStorage.getItem("login"))
-        console.log(quantita)
-        account.cart.push([Number(id),Number(document.getElementById("quantita-2").value)])
-        console.log(account.cart)
+        let qta = Number(document.getElementById(quantita).value);
+        let dup = false;
+        for(let i = 0; i < account.cart.length; i++){
+            if(Number(id) === Number(account.cart[i][0])){
+                account.cart[i][1] += qta;
+                dup = true;
+                break;
+            }
+        }
+        if(!dup){
+            account.cart.push([Number(id), qta]);
+        }
         localStorage.setItem("account", JSON.stringify(account));
+        updateLoginAccount(account);
+        let num = 0;
+        for (let i = 0; i < account.cart.length; i++) {
+            num+=account.cart[i][1]
+        
+        }
+        document.getElementById("a_account").innerHTML = "Carrello(" + num+")";
+        console.log(account.cart);
     }
-    
 }
+    
