@@ -1,3 +1,3 @@
-/, nome, marca, descrizione, immagine, prezzo, dimensioni, taglia, spedizioni(gg)
+nome, marca, descrizione, immagine, prezzo, dimensioni, taglia, spedizioni(gg)
 
 struttura csv

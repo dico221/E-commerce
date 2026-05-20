@@ -19,9 +19,74 @@
     </div>
     
 </div>
-<div id="prodotti">
-        
-</div>
-    <script src="./js/script.js"></script>
+    <div id="prodotti">
+
+    </div>
+    <script src="./js/script.js">
+
+    </script>
+    <script>
+        document.getElementById("prodotti");
+        let elementi = localStorage.getItem("csv");
+        let divPagina = document.getElementById("prodotti");
+        let righe = elementi.split('\n');
+        if(localStorage.getItem("csv") != null){
+            for (let i = 0; i < righe.length; i++) {
+                let colonne = righe[i].split(',');
+                let titoloCSV = colonne[0];
+                let marcaCSV = colonne[1];
+                let descCSV = colonne[2] +"<br>Dimensioni: " + colonne[5] +"<br>Taglia: " + colonne[6] + "<br>Spedizione: " + colonne[7];
+                let imgCSV = colonne[3];
+                let prezzoCSV = colonne[4];
+
+                let div = document.createElement("div");
+                let img = document.createElement("img");
+                let marca = document.createElement("p");
+                let titolo = document.createElement("p");
+                let desc = document.createElement("p");
+                let prezzo = document.createElement("p");
+                let quantita = document.createElement("input");
+                let acquista = document.createElement("input");
+
+
+
+                img.src = imgCSV;
+                titolo.innerHTML = titoloCSV;
+                desc.innerHTML = descCSV;
+                prezzo.innerHTML = prezzoCSV;
+
+                acquista.value = "Aggiungi al carrello";
+                acquista.type = "button";
+                acquista.id = i;
+                acquista.addEventListener("click", () => {
+                    aggiungiCarrello(acquista.id, quantita.id);
+                });
+
+                quantita.type = "number";
+                quantita.min = "1";
+                quantita.value = "1";
+                quantita.id = "quantita-" + i;
+
+
+                div.classList.add("prodotto")
+                img.classList.add("img-prodotto")
+                marca.classList.add("marca-prodotto")
+                titolo.classList.add("titolo-prodotto")
+                desc.classList.add("desc-prodotto")
+                prezzo.classList.add("prezzo-prodotto");
+                quantita.classList.add("quantita");
+                acquista.classList.add("btn-acquista");
+                
+
+                div.appendChild(img);
+                div.appendChild(titolo);
+                div.appendChild(desc);
+                div.appendChild(prezzo);
+                div.appendChild(quantita);
+                div.appendChild(acquista);
+                divPagina.appendChild(div);
+            }
+        }
+    </script>
 </body>
 </html>

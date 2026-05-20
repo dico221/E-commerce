@@ -154,4 +154,255 @@ footer {
 /* HOVER */
 .logout-text:hover{
     opacity: 0.6;
+}/* =========================
+   CONTENITORE PRODOTTI
+========================= */
+
+#prodotti{
+    width: 100%;
+
+    padding: 30px;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+    gap: 25px;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.prodotto{
+    background-color: white;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    transition: 0.2s ease;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.prodotto:hover{
+    transform: translateY(-5px);
+
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   IMMAGINE
+========================= */
+
+.img-prodotto{
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info-prodotto{
+    padding: 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    flex-grow: 1; /* riempie lo spazio */
+}
+
+/* TITOLO */
+
+.titolo-prodotto{
+    font-size: 20px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+
+/* DESCRIZIONE */
+
+.desc-prodotto{
+    color: #666;
+
+    line-height: 1.4;
+
+    font-size: 15px;
+}
+
+/* PREZZO */
+
+.prezzo-prodotto{
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+
+/* QUANTITÀ */
+
+.quantita{
+    width: 80px;
+
+    padding: 8px;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+.quantita:focus{
+    border-color: #111;
+}
+
+/* BOTTONE */
+
+.btn-acquista{
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background-color: #111;
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    width: 100%;
+}
+
+.btn-acquista:hover{
+    opacity: 0.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px){
+
+    #prodotti{
+        padding: 20px;
+    }
+
+    .img-prodotto{
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px){
+
+    #prodotti{
+        grid-template-columns: 1fr;
+
+        padding: 15px;
+    }
+
+    .img-prodotto{
+        height: 180px;
+    }
+
+    .titolo-prodotto{
+        font-size: 18px;
+    }
+
+    .prezzo-prodotto{
+        font-size: 20px;
+    }
+}
+/* =========================
+   IMMAGINE PRODOTTO
+========================= */
+
+.img-prodotto{
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    display: block;
+
+    background-color: #f5f5f5;
+
+    border-bottom: 1px solid #e5e5e5;
+
+    transition: transform 0.3s ease;
+}
+
+/* EFFETTO HOVER */
+
+.prodotto:hover .img-prodotto{
+    transform: scale(1.03);
+}
+
+/* CONTENITORE PER TAGLIARE ZOOM */
+
+.prodotto{
+    background-color: #fff;
+
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;            /* importante per grid */
+    min-height: 420px;       /* TUTTE UGUALI */
+
+    transition: 0.2s ease;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+/* Tablet */
+
+@media (max-width: 768px){
+
+    .img-prodotto{
+        height: 200px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px){
+
+    .img-prodotto{
+        height: 180px;
+    }
+}
+
+/* Mobile piccolo */
+
+@media (max-width: 350px){
+
+    .img-prodotto{
+        height: 150px;
+    }
 }

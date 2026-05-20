@@ -215,8 +215,6 @@ function loadCSV(){
 
         console.log(1);
 
-        parseCSV(fileCsv);
-
     }else{
 
         console.log(2);
@@ -245,6 +243,14 @@ function resetCSV(){
 }
 
 
-function aggiungiCarrello(id){
-
+function aggiungiCarrello(id,quantita){
+    account = JSON.parse(localStorage.getItem("account"));
+    if(account != null){
+        logins = JSON.parse(localStorage.getItem("login"))
+        console.log(quantita)
+        account.cart.push([Number(id),Number(document.getElementById("quantita-2").value)])
+        console.log(account.cart)
+        localStorage.setItem("account", JSON.stringify(account));
+    }
+    
 }
