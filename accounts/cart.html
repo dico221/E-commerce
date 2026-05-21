@@ -6,6 +6,7 @@
     <title>Carrello</title>
     <link rel="icon" type="image/x-icon" href="../favicon.ico">
     <link rel="stylesheet" href="css/cart/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
 
@@ -24,7 +25,7 @@
 <div id="totale-carrello"></div>
 
 <div id="pulsanti">
-    <input type="button" class="acquista" value="Acquista">
+    <input type="button" class="acquista" value="Acquista" onclick="generaPDF()">
 </div>
 
 <script>
@@ -47,13 +48,14 @@ if (elementi != null && account != null && account.cart != null) {
 
         let cartItem = account.cart[id];
 
-        if (!cartItem || cartItem[1] <= 0) continue;
-
+        if (!cartItem || cartItem[1] <= 0){
+            continue;
+        }
         trovato = true;
 
         let quantita = cartItem[1];
 
-        let colonne = righe[id].split(',');
+        let colonne = righe[account.cart[id][0]].split(',');
 
         let titoloCSV = colonne[0];
         let marcaCSV = colonne[1];
@@ -172,6 +174,68 @@ function updateLoginAccount(account2) {
 
     localStorage.setItem("logins", JSON.stringify(logins));
 }
+
+function generaPDF(){
+
+    const { jsPDF } = window.jspdf;
+    let documento = new jsPDF();
+
+    documento.setFontSize(16);
+    documento.text("RICEVUTA D'ACQUISTO",10,10);
+    documento.setFontSize(10);
+    documento.text("Data: " + new Date().toLocaleDateString("it-IT"),10,20);
+    documento.text("Utente: " + account.email,10,28);
+    documento.setLineWidth(1);       
+    documento.setDrawColor(0, 0, 0); 
+
+    documento.line(10, 30, 190, 30);
+
+    
+    let righe = elementi.split('\n');
+    let y = 40;
+    let totale = 0;
+
+    for (let i = 0; i < account.cart.length; i++) {
+        let idProdotto = account.cart[i][0];
+        let quantita   = account.cart[i][1];
+
+        if (!idProdotto || quantita <= 0) continue;
+
+        let colonne = righe[idProdotto].split(',');
+        
+        let marca  = colonne[1]?.trim();
+        let nome   = colonne[0]?.trim();
+        let prezzo = parseFloat(colonne[4]);
+        
+        let subtotale = prezzo * quantita;
+        totale += subtotale;
+
+        let riga = marca + " " + nome + " - " + prezzo.toFixed(2) + "€ x" + quantita + " = " + subtotale.toFixed(2) + "€";
+        
+        documento.text(riga, 10, y);
+        y += 10;
+
+        if (y > 280) {
+            documento.addPage();
+            y = 40;
+        }
+    }
+
+    y += 5;
+    documento.setFontSize(12);
+    documento.text("TOTALE: " + totale.toFixed(2) + "€", 10, y);
+
+    let nomeFile = "ricevuta.pdf";
+    documento.save(nomeFile);
+
+    account.cart = [];
+    localStorage.setItem("account", JSON.stringify(account));
+    updateLoginAccount(account);
+    
+
+    window.location.href="../index.html";
+}
+
 
 </script>
 </body>
