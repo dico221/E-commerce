@@ -16,17 +16,20 @@ logins = {
 }
 */
 
-function updateLoginAccount(account2){
+function updateLoginAccount(account2) {
 
     let logins = JSON.parse(localStorage.getItem("logins"));
+    let indice = -1;
 
-    let i = logins.findIndex(element =>
-        element.email === account2.email
-    );
+    for (let i = 0; i < logins.length; i++) {
+        if (logins[i].email === account2.email) {
+            indice = i;
+            break;
+        }
+    }
 
-    if(i != -1){
-
-        logins[i] = account2;
+    if (indice != -1) {
+        logins[indice] = account2;
         localStorage.setItem("logins", JSON.stringify(logins));
     }
 }
@@ -264,30 +267,37 @@ function resetCSV(){
 
 
 function aggiungiCarrello(id, quantita){
-
-    let account = JSON.parse(localStorage.getItem("account"));
-    if(account != null){
-        let qta = Number(document.getElementById(quantita).value);
-        let dup = false;
-        for(let i = 0; i < account.cart.length; i++){
-            if(Number(id) === Number(account.cart[i][0])){
-                account.cart[i][1] += qta;
-                dup = true;
-                break;
+    if(document.getElementById(quantita).value > 0){
+        let account = JSON.parse(localStorage.getItem("account"));
+        if(account != null){
+            let qta = Number(document.getElementById(quantita).value);
+            let dup = false;
+            for(let i = 0; i < account.cart.length; i++){
+                if(Number(id) === Number(account.cart[i][0])){
+                    account.cart[i][1] += qta;
+                    dup = true;
+                    break;
+                }
             }
-        }
-        if(!dup){
-            account.cart.push([Number(id), qta]);
-        }
-        localStorage.setItem("account", JSON.stringify(account));
-        updateLoginAccount(account);
-        let num = 0;
-        for (let i = 0; i < account.cart.length; i++) {
-            num+=account.cart[i][1]
+            if(!dup){
+                account.cart.push([Number(id), qta]);
+            }
+            localStorage.setItem("account", JSON.stringify(account));
+            updateLoginAccount(account);
+            let num = 0;
+            for (let i = 0; i < account.cart.length; i++) {
+                num+=account.cart[i][1]
         
-        }
-        document.getElementById("a_account").innerHTML = "Carrello(" + num+")";
-        console.log(account.cart);
+            }
+            document.getElementById("a_account").innerHTML = "Carrello(" + num+")";
+            console.log(account.cart);
     }
-}
+    }
     
+}
+
+
+function resetAll(){
+    localStorage.removeItem("account")
+    localStorage.removeItem("logins")
+}

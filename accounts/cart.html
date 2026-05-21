@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="css/cart/style.css">
 </head>
 <body>
-    <div class="header">
+
+<div class="header">
     <div class="titolo" onclick="window.location.href='../index.html'">
         <img src="../css/imgs/title.png" alt="DAWMarket">
     </div>
@@ -17,16 +18,161 @@
         <a id="a_account" class="account"></a>
     </div>
 </div>
-    <div>
-        <div id="prodotti"></div>
-        <div id="pulsanti">
-            <input type="button" class="acquista" value="Acquista">
-        </div>
-    </div>
-    <script src="../js/script.js">
-        if (localStorage.getItem(account) == null) {
-            window.location.href="../index.html";
+
+<div id="messaggio-vuoto"></div>
+<div id="prodotti"></div>
+<div id="totale-carrello"></div>
+
+<div id="pulsanti">
+    <input type="button" class="acquista" value="Acquista">
+</div>
+
+<script>
+
+let account = JSON.parse(localStorage.getItem("account"));
+let elementi = localStorage.getItem("csv");
+
+let divPagina = document.getElementById("prodotti");
+let messaggioVuoto = document.getElementById("messaggio-vuoto");
+let totaleDiv = document.getElementById("totale-carrello");
+
+let trovato = false;
+let totaleCarrello = 0;
+
+if (elementi != null && account != null && account.cart != null) {
+
+    let righe = elementi.split('\n');
+
+    for (let id = 0; id < righe.length; id++) {
+
+        let cartItem = account.cart[id];
+
+        if (!cartItem || cartItem[1] <= 0) continue;
+
+        trovato = true;
+
+        let quantita = cartItem[1];
+
+        let colonne = righe[id].split(',');
+
+        let titoloCSV = colonne[0];
+        let marcaCSV = colonne[1];
+        let imgCSV = colonne[3];
+        let prezzoCSV = parseFloat(colonne[4]);
+
+        totaleCarrello += prezzoCSV * quantita;
+
+        let div = document.createElement("div");
+        div.classList.add("prodotto");
+
+        let img = document.createElement("img");
+        img.src = imgCSV;
+        img.classList.add("img-prodotto");
+
+        let info = document.createElement("div");
+        info.classList.add("info");
+
+        let marca = document.createElement("p");
+        marca.classList.add("marca");
+        marca.innerHTML = marcaCSV;
+
+        let titolo = document.createElement("p");
+        titolo.classList.add("nome");
+        titolo.innerHTML = titoloCSV;
+
+        let qta = document.createElement("p");
+        qta.classList.add("quantita");
+        qta.innerHTML = "Quantità: " + quantita;
+
+        let prezzo = document.createElement("p");
+        prezzo.classList.add("prezzo");
+        prezzo.innerHTML = prezzoCSV + "€";
+
+        let totale = document.createElement("p");
+        totale.classList.add("totale");
+        totale.innerHTML =
+            "Totale: " + (prezzoCSV * quantita).toFixed(2) + "€";
+
+        let bottoni = document.createElement("div");
+        bottoni.classList.add("bottoni");
+
+        let meno = document.createElement("input");
+        meno.type = "button";
+        meno.value = "-";
+
+        let piu = document.createElement("input");
+        piu.type = "button";
+        piu.value = "+";
+
+        meno.addEventListener("click", () => {
+
+            if (account.cart[id][1] > 0) {
+                account.cart[id][1]--;
+            }
+
+            localStorage.setItem("account", JSON.stringify(account));
+            updateLoginAccount(account);
+            location.reload();
+        });
+
+        piu.addEventListener("click", () => {
+
+            account.cart[id][1]++;
+
+            localStorage.setItem("account", JSON.stringify(account));
+            updateLoginAccount(account);
+            location.reload();
+        });
+
+        bottoni.appendChild(meno);
+        bottoni.appendChild(piu);
+
+        info.appendChild(marca);
+        info.appendChild(titolo);
+        info.appendChild(prezzo);
+        info.appendChild(qta);
+        info.appendChild(totale);
+        info.appendChild(bottoni);
+
+        div.appendChild(img);
+        div.appendChild(info);
+
+        divPagina.appendChild(div);
+    }
+}
+
+if (trovato) {
+
+    totaleDiv.innerHTML =
+        "Totale carrello: " + totaleCarrello.toFixed(2) + "€";
+
+} else {
+
+    let testo = document.createElement("p");
+    testo.classList.add("carrello-vuoto");
+
+    testo.innerHTML =
+        "Non ci sono prodotti nel carrello.<br>Aggiungi dei prodotti per iniziare.";
+
+    messaggioVuoto.appendChild(testo);
+
+    document.getElementById("pulsanti").style.display = "none";
+}
+
+function updateLoginAccount(account2) {
+
+    let logins = JSON.parse(localStorage.getItem("logins"));
+
+    for (let i = 0; i < logins.length; i++) {
+        if (logins[i].email === account2.email) {
+            logins[i] = account2;
+            break;
         }
-    </script>
+    }
+
+    localStorage.setItem("logins", JSON.stringify(logins));
+}
+
+</script>
 </body>
 </html>

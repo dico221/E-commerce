@@ -1,136 +1,452 @@
+/* =========================
+   RESET
+========================= */
 
-/* RESET */
-* {
+*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* BASE */
-body {
+/* =========================
+   BASE
+========================= */
+
+body{
     font-family: Arial, Helvetica, sans-serif;
+
     background-color: #fff;
+
     color: #111;
+
     min-height: 100vh;
+
     overflow-x: hidden;
 }
 
-/* HEADER */
-.header {
+/* =========================
+   HEADER
+========================= */
+
+.header{
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
+
     padding: 15px 30px;
+
     border-bottom: 1px solid #e5e5e5;
+
     background-color: #fff;
+
     flex-wrap: wrap;
+
     gap: 15px;
 }
 
 /* LOGO */
-.titolo {
+
+.titolo{
     cursor: pointer;
 }
 
-.titolo img {
+.titolo img{
     max-width: 160px;
+
     height: auto;
+
     transition: opacity 0.2s ease;
 }
 
-.titolo img:hover {
+.titolo img:hover{
     opacity: 0.6;
 }
 
-/* NAV LINKS */
-.header div {
+/* NAV */
+
+.nav{
     display: flex;
+
     align-items: center;
+
     gap: 20px;
-    flex-wrap: wrap;
 }
 
-.header a {
+.nav a{
     text-decoration: none;
+
     color: #111;
+
     font-size: 20px;
+
     transition: opacity 0.2s ease;
-    white-space: nowrap;
 }
 
-.header a:hover {
+.nav a:hover{
     opacity: 0.6;
-}
-
-/* FOOTER */
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 50px;
-    border-top: 1px solid #e5e5e5;
-    background-color: #fff;
 }
 
 /* =========================
-   RESPONSIVE DESIGN
+   CONTENITORE PAGINA
 ========================= */
 
-/* Tablet */
-@media (max-width: 768px) {
+#prodotti{
+    width: 100%;
 
-    .header {
+    max-width: 1200px;
+
+    margin: 40px auto;
+
+    padding: 0 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+/* =========================
+   CARD PRODOTTO
+========================= */
+
+.prodotto{
+    width: 100%;
+
+    background-color: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 16px;
+
+    padding: 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 25px;
+
+    transition: 0.2s ease;
+}
+
+.prodotto:hover{
+    transform: translateY(-3px);
+
+    box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+}
+
+/* =========================
+   IMMAGINE
+========================= */
+
+.prodotto img{
+    width: 180px;
+
+    height: 180px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    background-color: #f5f5f5;
+
+    flex-shrink: 0;
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info{
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex: 1;
+}
+
+/* MARCA */
+
+.marca{
+    font-size: 15px;
+
+    color: #666;
+}
+
+/* TITOLO */
+
+.nome{
+    font-size: 24px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+
+/* PREZZO */
+
+.prezzo{
+    font-size: 26px;
+
+    font-weight: bold;
+
+    color: #111;
+}
+
+/* QUANTITÀ */
+
+.quantita{
+    font-size: 17px;
+
+    color: #444;
+}
+
+/* =========================
+   BOTTONI
+========================= */
+
+.bottoni{
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 10px;
+}
+
+.bottoni input{
+    width: 42px;
+
+    height: 42px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #111;
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.bottoni input:hover{
+    opacity: 0.8;
+}
+
+/* =========================
+   FOOTER ACQUISTO
+========================= */
+
+#pulsanti{
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    padding: 20px 25px 40px 25px;
+}
+
+.acquista{
+    width: 100%;
+
+    max-width: 350px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background-color: #111;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.acquista:hover{
+    opacity: 0.8;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px){
+
+    .header{
         padding: 15px 20px;
-        gap: 10px;
     }
 
-    .titolo img {
+    .titolo img{
         max-width: 130px;
     }
 
-    .header a {
+    .nav a{
+        font-size: 18px;
+    }
+
+    .prodotto{
+        gap: 18px;
+
+        padding: 18px;
+    }
+
+    .prodotto img{
+        width: 140px;
+
+        height: 140px;
+    }
+
+    .nome{
+        font-size: 20px;
+    }
+
+    .prezzo{
+        font-size: 22px;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px){
+
+    .header{
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+    }
+
+    .nav{
+        justify-content: center;
+    }
+
+    #prodotti{
+        padding: 0 15px;
+    }
+
+    .prodotto{
+        flex-direction: column;
+
+        text-align: center;
+
+        align-items: center;
+    }
+
+    .prodotto img{
+        width: 100%;
+
+        max-width: 260px;
+
+        height: 220px;
+    }
+
+    .info{
+        align-items: center;
+    }
+
+    .nome{
+        font-size: 19px;
+    }
+
+    .prezzo{
+        font-size: 21px;
+    }
+
+    .bottoni{
+        justify-content: center;
+    }
+
+    .acquista{
+        font-size: 17px;
+    }
+}
+
+/* =========================
+   MOBILE PICCOLO
+========================= */
+
+@media (max-width: 350px){
+
+    .nome{
+        font-size: 17px;
+    }
+
+    .prezzo{
+        font-size: 19px;
+    }
+
+    .bottoni input{
+        width: 38px;
+
+        height: 38px;
+
         font-size: 18px;
     }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
+.carrello-vuoto{
+    width: 100%;
 
-    .header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        gap: 12px;
-    }
+    text-align: center;
 
-    .header div {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 12px;
-    }
+    margin-top: 40px;
 
-    .titolo img {
-        max-width: 120px;
-    }
+    font-size: 18px;
 
-    .header a {
-        font-size: 16px;
-    }
+    color: #666;
 
-    footer {
-        height: 45px;
-    }
+    line-height: 1.6;
+}
+#totale-carrello{
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 10px auto 0 auto;
+
+    padding: 0 25px;
+
+    text-align: right;
+
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #111;
 }
 
-/* Mobile piccolo */
-@media (max-width: 350px) {
+@media (max-width: 480px){
 
-    .header a {
-        font-size: 14px;
-    }
+    #totale-carrello{
+        text-align: center;
 
-    .titolo img {
-        max-width: 100px;
+        font-size: 24px;
+
+        padding: 0 15px;
     }
 }
