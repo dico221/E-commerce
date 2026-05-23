@@ -194,12 +194,13 @@ function generaPDF(){
     let righe = elementi.split('\n');
     let y = 40;
     let totale = 0;
+    
 
     for (let i = 0; i < account.cart.length; i++) {
         let idProdotto = account.cart[i][0];
         let quantita   = account.cart[i][1];
 
-        if (!idProdotto || quantita <= 0) continue;
+        if (quantita <= 0) continue;
 
         let colonne = righe[idProdotto].split(',');
         
@@ -210,7 +211,7 @@ function generaPDF(){
         let subtotale = prezzo * quantita;
         totale += subtotale;
 
-        let riga = marca + " " + nome + " - " + prezzo.toFixed(2) + "€ x" + quantita + " = " + subtotale.toFixed(2) + "€";
+        let riga = marca + " | " + nome + " - " + prezzo.toFixed(2) + "€ x" + quantita + " = " + subtotale.toFixed(2) + "€";
         
         documento.text(riga, 10, y);
         y += 10;
